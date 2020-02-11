@@ -11,9 +11,11 @@ import org.springframework.stereotype.Component;
 
 import com.mastek.hrapp.dao.DepartmentJPADAO;
 import com.mastek.hrapp.dao.EmployeeJPADAO;
+import com.mastek.hrapp.dao.JobPositionsDAO;
 import com.mastek.hrapp.dao.ProjectJPADAO;
 import com.mastek.hrapp.entities.Department;
 import com.mastek.hrapp.entities.Employee;
+import com.mastek.hrapp.entities.JobPositions;
 import com.mastek.hrapp.entities.Project;
 
 
@@ -31,6 +33,9 @@ public class EmployeeService {
 	
 	@Autowired
 	ProjectJPADAO projectDAO;
+	
+	@Autowired
+	JobPositionsDAO jobsDAO;
 	
 	
 	
@@ -64,7 +69,7 @@ public class EmployeeService {
 		System.out.println("exampe property set:"+ exampleProperty);
 		this.exampleProperty = exampleProperty;
 	}
-	@Transactional //this will keep the session pen until the method returns a value
+	@Transactional //this will keep the session open until the method returns a value
 	public Employee assignEmployeeToDepartment(int empno, int deptno) {
 		Employee emp = empDAO.findById(empno).get(); //fetch the employee if exists
 		Department dept = deptDAO.findById(deptno).get(); //fetch the department if exists
@@ -90,6 +95,20 @@ public class EmployeeService {
 		empDAO.save(emp); //save employee object
 		
 		return emp;//return the employee object
+	}
+	
+	@Transactional
+	public JobPositions applyForJobPosition(int jobId,int empno) {
+		
+		JobPositions job= jobsDAO.findById(jobId).get();
+		Employee emp = empDAO.findById(empno).get();
+		
+		//adding employee object in applicants collection
+		job.getApplicants().add(emp);
+		
+		job= jobsDAO.save(job);
+		
+		return job;
 	}
 	
 }

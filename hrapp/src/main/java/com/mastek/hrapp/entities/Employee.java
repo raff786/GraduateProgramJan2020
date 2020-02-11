@@ -16,12 +16,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.Transient;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Entity  //declared the class as an entity which will be managed by JPA
 @Table(name="JPA_Employees") //declare the table name associated with the class 
 @EntityListeners({EmployeeListener.class})//calls the appropriate listener event method on lifecycle event
+@NamedQueries({
+	@NamedQuery(name="Employee.findBySalary", //declare the query name as the method in DAO
+			query="select e from Employee e where e.salary between :minSalary and :maxSalary")
+			//identify the query to fetch Employee objects with properties and parameters
+			//all the params are to be declared using @Param("<name>") in the DAO interface
+			//: means its a parameter 
+	,
+	@NamedQuery(name="Employee.findByDesignation",
+				query="select e from Employee e where e.designation=:designation")
+				//identify the query method n the DAO and pass necessary params
+})
 public class Employee {
 	
 	int empno;
@@ -34,6 +50,7 @@ public class Employee {
 	
 	@ManyToOne //one employee is associated wih one of the many departments 
 	@JoinColumn(name="fk_department_number") //the foreign key column to store the associate deptno
+	@Transient   //ignore this property when storing employee data in mongo db
 	public Department getCurrentDepartment() {
 		return currentDepartment;
 	}
@@ -52,6 +69,7 @@ public class Employee {
 				joinColumns={@JoinColumn(name="fk_empno")}, //Foreign key column for current class
 				inverseJoinColumns= {@JoinColumn(name="fk_projectId")}
 	)	//Foreign key column for collection
+	@Transient 
 	public Set<Project> getProjectsAssigned() {
 		return projectsAssigned;
 	}
