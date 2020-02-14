@@ -12,13 +12,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.ws.rs.FormParam;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-
+@XmlRootElement //declares the entity to be transformed to xml or JSON
 @Entity  //declared the class as an entity which will be managed by JPA
 @Table(name="JPA_Departments") //declare the table name associated with the class 
 public class Department {
 	int deptno;
+	@FormParam("name")
 	String name;
+	@FormParam("location")
 	String location;
 	
 	
@@ -26,6 +31,7 @@ public class Department {
 	//specify in mappedBy
 	//this associates the many entity using collection with cascade enabled 
 	@OneToMany(mappedBy="currentDepartment",cascade=CascadeType.ALL)
+	@XmlTransient
 	public Set<Employee> getTeam() {
 		return team;
 	}
