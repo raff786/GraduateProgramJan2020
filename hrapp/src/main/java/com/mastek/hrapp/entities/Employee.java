@@ -80,7 +80,7 @@ public class Employee {
 				inverseJoinColumns= {@JoinColumn(name="fk_projectId")}
 	)	//Foreign key column for collection
 	@Transient 
-	@XmlTransient  //ignore the association property when shared via service 
+	@XmlTransient  //ignore the association property when shared via service and needed for postman
 	public Set<Project> getProjectsAssigned() {
 		return projectsAssigned;
 	}
