@@ -11,6 +11,7 @@ import com.mastek.hrapp.services.ProjectServices;
 public class APIConfig extends ResourceConfig{  //configure the service class using ResourceConfig
 	
 	public APIConfig() {
+		register(CORSFilter.class); //enable the corsefilter for ui applications to access the service
 		//register each service class to enable services as API
 		register(EmployeeService.class);
 		register(DepartmentsService.class);
