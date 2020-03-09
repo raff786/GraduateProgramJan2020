@@ -1,0 +1,99 @@
+.primaryOne-colour-one{
+    color: navy;
+}
+
+.primaryOne-colour-two{
+    color: turquoise;
+}
+
+.primaryOne-colour-three{
+    color: lightgray;
+}
+
+.font-normal{
+    font-size: medium;
+}
+
+.font-large{
+    font-size: large;
+}
+
+.font-heading{
+    font-size: x-large;
+}
+
+.border-double{
+    border-style: double;
+    border-color: navy;
+    border-width: 3px;
+}
+
+.border-table{
+    border-style: groove;
+    border-color: lightgray;
+    border-width: 5px;
+}
+
+#ticker{
+    background: darkslategrey;
+    color: lightgray;
+    font-size: medium;
+    font-family: monospace;    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+body{
+    color: navy;
+}
+h1{
+    color: navy;
+}
+th{
+    color: darkturquoise;
+  }
+  td{
+      color: gray;
+  }
+  */
